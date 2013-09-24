@@ -1,0 +1,22 @@
+{
+  "name": "02 Cajon",
+  "version": "0.0.1",
+  "homepage": "https://github.com/jelz/10-things-about-amd",
+  "authors": [
+    "Jakub Elzbieciak <jelz@post.pl>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "underscore-amd": "~1.5.2",
+    "jquery": "~2.0.3",
+    "momentjs": "~2.2.1"
+  }
+}

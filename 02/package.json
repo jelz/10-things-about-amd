@@ -1,0 +1,11 @@
+{
+  "name": "02-Cajon",
+  "version": "0.0.1",
+  "author": "Jakub Elzbieciak <jelz@post.pl>",
+  "private": true,
+  "license": "MIT",
+  "dependencies": {
+    "cajon": "~0.1.10"
+  },
+  "devDependencies": {}
+}
