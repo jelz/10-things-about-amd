@@ -15,6 +15,9 @@
     "tests"
   ],
   "dependencies": {
-    "requirejs": "~2.1.8"
+    "requirejs": "~2.1.8",
+    "underscore-amd": "~1.5.2",
+    "jquery": "~2.0.3",
+    "requirejs-text": "~2.0.10"
   }
 }

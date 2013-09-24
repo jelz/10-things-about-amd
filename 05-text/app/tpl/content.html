@@ -1,0 +1,9 @@
+<script id="template-content" type="text/template">
+    <h4>Our products:</h4>
+    <% _.each(products, function (p) { %>
+        <div>
+            <p><strong><%= p.name %></strong></p>
+            <p><%= p.desc %></p>
+        </div>
+    <% }) %>
+</script>
