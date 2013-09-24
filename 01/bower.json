@@ -1,5 +1,5 @@
 {
-  "name": "10-things-about-amd: scaffolding",
+  "name": "01 Simplified CommonJS Wrapper",
   "version": "0.0.1",
   "homepage": "https://github.com/jelz/10-things-about-amd",
   "authors": [
@@ -16,6 +16,8 @@
   ],
   "dependencies": {
     "requirejs": "~2.1.8",
-    "underscore-amd": "~1.5.2"
+    "underscore-amd": "~1.5.2",
+    "jquery": "~2.0.3",
+    "momentjs": "~2.2.1"
   }
 }
