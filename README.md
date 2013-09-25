@@ -15,7 +15,7 @@
 
 ### Slides
 
-(soon!)
+[alpha version](http://jelz.github.io/10-things-about-amd/)
 
 ### Server
 
