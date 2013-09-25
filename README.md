@@ -15,13 +15,22 @@
 
 As you can see: work is in progress :)
 
+### Server
+
+You need running webserver to be able to use XHR. Just jump to repository root, type `python -m SimpleHTTPServer` and visit `localhost:8000`.
+
+### Binaries
+
+First - grab node.js from [nodejs.org](http://nodejs.org). Then:
+
+* bower: `npm install -g bower`
+* madge: `npm install -g madge`
+* graphviz: `aptitude install graphviz` (Debian/Ubuntu)
+* r.js: `npm install -g requirejs`
+
 ### Vendors
 
-If directory contains:
+If directory contains (can be both):
 
-1. `bower.json`, then install vendors with `bower install`
-2. `package.json`, then install using `npm install`
-
-To install madge as a global binary: `npm install -g madge` (possibly with `sudo`).
-
-r.js optimizer can also be installed using npm. Package name is `requirejs`.
+* `bower.json`, then install vendors with `bower install`
+* `package.json`, then install vendors with `npm install`
