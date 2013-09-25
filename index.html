@@ -133,7 +133,7 @@ require(['jquery', 'app'], function ($, app) {
                     <section>
                         <h2>Advantages</h2>
                         <ul>
-                            <li>Modules have their privacy, dependencies are easy to fetch</li>
+                            <li>Modules have its privacy, dependencies are easy to fetch</li>
                             <li>There is no unintended module interference</li>
                             <li>Files are loaded asynchronously, but the order needed to fulfill dependencies is automatically handled</li>
                             <li>One simple build step leads into a compressed bundle (that can be grabbed with one HTTP request)</li>
@@ -535,7 +535,229 @@ $('#toggle').on('click', function () {
                         </code></pre>
                     </section>
                 </section>
+                
+                <section>
+                    <section>
+                        <h3>7th thing:</h3>
+                        <h2>jQuery integration</h2>
+                    </section>
+                    <section>
+                        <h2>Look after your jQuery</h2>
+                        <p>You should:</p>
+                        <ul>
+                            <li>Use CDN version of jQuery</li>
+                            <li>Have fallback version setted up</li>
+                            <li>Use local version in development</li>
+                            <li>Have custom plugins loaded after loading jQuery</li>
+                            <li>Write your plugins as AMD modules</li>
+                            <li>Never use old-style <code>jquery-require.js</code> files</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>SIAF jQuery path config</h2>
+                        <pre><code data-trim>
 
+require.config({
+    paths: {
+        jquery: (function () {
+            var local = window.location.host.match(/localhost/);
+            var paths = [
+                'http://codeorigin.jquery.com/jquery-2.0.3.min',
+                '../bower_components/jquery/jquery'];
+            return local ? paths.reverse() : paths;
+        }())
+    }
+});
+
+                        </code></pre>
+                        <p>It simply handles first three points</p>
+                    </section>
+                    <section>
+                        <h2>Shim config</h2>
+                        <ul>
+                            <li>Some jQuery plugins don't have its AMD version</li>
+                            <li>When requested, jQuery object can be still undefined, so plugin can't be correctly registered</li>
+                            <li><em>Shim config</em> allows to define dependencies for vendors, without modifying its code</li>
+                        </ul>
+                        <pre><code data-trim>
+
+require.config({
+    paths: {
+        jquery: '../bower_components/jquery/jquery'
+        'jquery.payment': '../bower_components/jquery.payment/lib/jquery.payment'
+    },
+    shim: {
+        'jquery.payment': ['jquery']
+    }
+});
+
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2>When comercial, use AMD</h2>
+                        <p>When writing open-source plugins, keep jQuery styleguide.</p>
+                        <p>When writing for you or client, use AMD.</p>
+                        <pre><code data-trim>
+
+define(function (require) {
+    var $ = require('jquery');
+    
+    $.fn.fart = function () {
+        alert('fart!');
+    };
+});
+
+                        </code></pre>
+                        <p>(very stupid jQuery plugin, AMD style)</p>
+                    </section>
+                </section>
+                
+                <section>
+                    <section>
+                        <h3>8th thing:</h3>
+                        <h2>Packages</h2>
+                    </section>
+                    <section>
+                        <h2>Organize your code even better</h2>
+                        <ul>
+                            <li>Package is a bunch of modules, that serves for a common or similar purpose</li>
+                            <li>First profit: you get simple prefix for all modules in directory, no matter where it's located</li>
+                            <li>Second profit: you can select main file of package, that will be loaded, when package name is requested</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Defining packages</h2>
+                        <p>When in base directory (it defines <em>util</em> and <em>widget</em> packages in corresponding subdirectories, with main files named <code>main.js</code>)</p>
+                        <pre><code data-trim>
+
+require.config({
+    packages: ['util', 'widget']
+});
+
+                        </code></pre>
+                        <p>Package config options used</p>
+                        <pre><code data-trim>
+
+require.config({
+    packages: ['widget', {
+        main: 'index',
+        location: '../vendor/widget'
+    }]
+});
+
+                        </code></pre>
+                        <small>Calling <code>require('widget/input')</code> will load <code>../vendor/widget/input.js</code>, calling <code>require('widget')</code> will load <code>../vendor/widget/index.js</code>)</small>
+                    </section>
+                    <section>
+                        <h2>Index modules</h2>
+                        <ul>
+                            <li>There is a popular pattern, derived from node.js community, to define main file of package as index module</li>
+                            <li>Index module returns object with references to all package modules that should be available for developer</li>
+                        </ul>
+                        <pre><code data-trim>
+
+define(function (require) {
+    return {
+        date: require('widget/date'),
+        input: require('widget/input')
+    };
+});
+
+                        </code></pre>
+                        <p>(keep in mind that loading index loads all its modules)</p>
+                    </section>
+                </section>
+                
+                <section>
+                    <section>
+                        <h3>9th thing:</h3>
+                        <h2>Bootstrap</h2>
+                    </section>
+                    <section>
+                        <h2>Twitter Bootstrap, I mean</h2>
+                        <ul>
+                            <li>You installed less or sass version with bower</li>
+                            <li>You handle compilation on your own</li>
+                            <li>But when it comes to Bootstrap JS plugins, you use "customize" page (or just throw everything into your page)</li>
+                            <li>But in your vendors you can find nicely splitted source files</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Handle it on your own</h2>
+                        <p>Create package for Bootstrap</p>
+                        <pre><code data-trim>
+
+require.config({
+    paths: {
+        jquery: '../bower_components/jquery/jquery'
+    },
+    packages: [
+        'bootstrap', {
+            name: 'bootstrap',
+            location: '../bower_components/bootstrap/js'
+        }
+    ],
+    shim: {
+        bootstrap: ['jquery']
+    }
+});
+
+                        </code></pre>
+                        <p>Now it's under your fingers</p>
+                    </section>
+                    <section>
+                        <h2>Result</h2>
+                        <pre><code data-trim>
+
+define([
+    'bootstrap/modal', 'bootstrap/tooltip', 'bootstrap/transition'
+], function () {
+    // play with bootstrap
+});
+
+                        </code></pre>
+                        <ul>
+                            <li>You see what you use</li>
+                            <li>You don't type too much (you can even name package Bootstrap package "<code>b</code>")</li>
+                            <li>When building, with every unused plugin, you loose next kilobytes of code</li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h3>10th thing:</h3>
+                        <h2>Know alternative</h2>
+                    </section>
+                    <section>
+                        <h2>browserify</h2>
+                        <ul>
+                            <li>There is a project called <em>browserify</em></li>
+                            <li>It's parser tracks dependencies of CommonJS-style modules and packs them into one bundle in build process</li>
+                            <li>It allows to use <em>npm</em> modules in the browser</li>
+                            <li>It requires build step on every change (Grunt's watch task is probably a good idea)</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Sample code</h2>
+                        <pre><code data-trim>
+
+var $ = require('jquery-browserify'),
+    moment = require('moment');
+
+var updateClock = function () {
+    var t = moment().format('H:mm:ss');
+    $('#clock').text(t);
+};
+
+updateClock();
+setInterval(updateClock, 1000);
+
+                        </code></pre>
+                        <p>Bundle with: <code>browserify app/main.js -o bundle.js</code></p>
+                    </section>
+                </section>
+                
 				<section>
 					<h1>Thank you!</h1>
 					<h3>Any questions?</h3>
