@@ -141,6 +141,13 @@ require(['jquery', 'app'], function ($, app) {
                         </ul>
                     </section>
 				</section>
+                
+                <section>
+                    <h2>Pay attention...</h2>
+                    <p>...to ideas and possibilities</p>
+                    <p>Code is only an illustration</p>
+                    <p>10 complete examples wait <a href="https://github.com/jelz/10-things-about-amd" target="_blank">on GitHub</a></p>
+                </section>
 
 				<section>
                     <section>
@@ -361,6 +368,171 @@ define(function (require, exports, module) {
                             <li>So cat module can use alice object in functions that it exports</li>
                             <li>It's still a circular dependency</li>
                         </ul>
+                    </section>
+                </section>
+                
+                <section>
+                    <section>
+                        <h3>4th thing:</h3>
+                        <h2>Almond</h2>
+                    </section>
+                    <section>
+                        <h2>When in production</h2>
+                        <ul>
+                            <li>Requesting 50 modules, ~2kB each isn't a good idea</li>
+                            <li>Requesting one, 5MB übermodule isn't a good idea too</li>
+                            <li>What you need is a wise build step</li>
+                            <li><code>r.js -o app/build.js</code></li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Building with RequireJS</h2>
+                        <pre><code data-trim>
+
+({
+    baseUrl: '.',
+    mainConfigFile: 'main.js',
+    name: '../bower_components/requirejs/require',
+    include: 'main',
+    wrap: true,
+    out: '../built/main.built.require.js'
+})
+
+                        </code></pre>
+                        <ul>
+                            <li>You'll end up with one file containing the whole application</li>
+                            <li>It also contains XHR-related code (but you don't do AJAX, as build shrunk everything into one file)</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Building with Almond</h2>
+                        <pre><code data-trim>
+
+({
+    baseUrl: '.',
+    mainConfigFile: 'main.js',
+    name: '../bower_components/almond/almond',
+    include: 'main',
+    wrap: true,
+    out: '../built/main.built.almond.js'
+})
+
+                        </code></pre>
+                        <ul>
+                            <li>Almond provides minimal AMD API</li>
+                            <li>In my cases &ndash; ~16kB smaller output files</li>
+                            <li>It buys you Ferrari yearly (if you're big enough ;))</li>
+                        </ul>
+                    </section>
+                </section>
+                
+                <section>
+                    <section>
+                        <h3>5th thing:</h3>
+                        <h2>text! plugin</h2>
+                    </section>
+                    <section>
+                        <h2>On loader plugins</h2>
+                        <ul>
+                            <li>There's a standard of loader plugins</li>
+                            <li>Loader chooses, if it should include plugin support</li>
+                            <li>Both RequireJS and Almond include plugin support</li>
+                            <li>Dependency that uses plugin for loading has special format: <code>plugin!dependency</code></li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>text! plugin</h2>
+                        <ul>
+                            <li><em>text!</em> plugin allows to grab any text file from any accessible location.</li>
+                            <li>Its content is passed into module function as normal string.</li>
+                            <li>Popular plugin's application is to load templates</li>
+                            <li>Having all your templates on the bottom of HTML, as <code>&lt;script&gt;</code> tags is messy and hard to maintain (especially when you do hundrets of atomic views)</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Simple template cache</h2>
+                        <pre><code data-trim>
+
+var templates = [
+    require('text!tpl/layout.html'),
+    require('text!tpl/content.html'),
+    require('text!tpl/menu.html')
+];
+
+_.each(templates, function (markup) {
+    $(markup).appendTo($('body'));
+});
+
+                        </code></pre>
+                        <p>Now, when editing, you know where to search each template</p>
+                        <p>But don't forget optimization!</p>
+                    </section>
+                </section>
+                
+                <section>
+                    <section>
+                        <h3>6th thing:</h3>
+                        <h2>i18n! plugin</h2>
+                    </section>
+                    <section>
+                        <h2>JS internationalization done right</h2>
+                        <p>Define root (default) translations</p>
+                        <pre><code data-trim>
+
+// file "nls/labels.js"
+define({
+    root: {
+        change_lang: 'Change language',
+        show_message: 'Show message'
+    },
+    pl: true
+});
+
+                        </code></pre>
+                        <p><code>pl</code> key indicates that there is also translation for another language</p>
+                        <pre><code data-trim>
+
+// in file "nls/pl/labels.js"
+define({
+    change_lang: 'Zmień język',
+    show_message: 'Pokaż wiadomość'
+});
+
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2>Using it</h2>
+                        <ul>
+                            <li>When you <code>require('i18n!nls/labels')</code>, correct translations will be loaded</li>
+                            <li><em>Correct</em> means "intelligent guess of user's language, based on environment, falling back to default"</li>
+                            <li>You can also set <code>locale</code> key in config</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Toggle lang (with localStorage)</h2>
+                        <p>Read from localStorage when building config:</p>
+                        <pre><code data-trim>
+
+require.config({
+    config: {
+        i18n: {
+            locale: localStorage.getItem('locale') || 'en'
+        }
+    }
+});
+
+                        </code></pre>
+                        <p>Read, swap, set, reload on chosen event:</p>
+                        <pre><code data-trim>
+
+$('#toggle').on('click', function () {
+    var current = localStorage.getItem('locale') || 'en';
+    var next = 'en' === current ? 'pl' : 'en';
+    localStorage.setItem('locale', next);
+    window.location.reload();
+});
+
+                        </code></pre>
                     </section>
                 </section>
 
