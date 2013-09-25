@@ -1,0 +1,21 @@
+{
+  "name": "08 packages",
+  "version": "0.0.1",
+  "homepage": "https://github.com/jelz/10-things-about-amd",
+  "authors": [
+    "Jakub Elzbieciak <jelz@post.pl>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "requirejs": "~2.1.8",
+    "jquery": "~2.0.3"
+  }
+}
