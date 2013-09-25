@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>10 things about AMD</title>
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/beige.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>10 things about AMD</h1>
+					<h3>(that you should know)</h3>
+					<p><small>Jakub Elżbieciak</small></p>
+				</section>
+
+				<section>
+					<section>
+						<h2>Short introduction to AMD</h2>
+                        <ul>
+                            <li>Asynchronous Module Definition</li>
+                            <li>Model API for defining JS modules and its dependencies</li>
+                            <li>Don't confuse with require.js</li>
+                        </ul>
+					</section>
+					<section>
+						<h2>Normal way of doing things</h2>
+                        <pre><code data-trim contenteditable>
+
+<script src="js/jquery.js"></script>
+<script src="js/jquery.payment.js"></script>
+<script src="js/jquery.ui.js"></script>
+<script src="js/underscore.js"></script>
+<script src="js/backbone.js"></script>
+<script src="js/app/main-view.js"></script>
+<script src="js/app/order-view.js"></script>
+<script src="js/app/confirm-view.js"></script>
+<script src="js/app/router.js"></script>
+<script src="js/app/custom-logic.js"></script>
+<script src="js/app/user-collection.js"></script>
+<script src="js/startup.js"></script>
+
+
+                        </code></pre>
+					</section>
+					<section>
+						<h2>Problems</h2>
+                        <ul>
+                            <li>Scripts are sequentially loaded one-by-one</li>
+                            <li>Order have to be maintained manually</li>
+                            <li>Global object gets dirty</li>
+                            <li>Things can be easily overridden</li>
+                        </ul>
+					</section>
+					<section>
+                        <h2>todo</h2>
+					</section>
+				</section>
+
+				<section>
+					<h2>todo</h2>
+				</section>
+
+				<section>
+					<h2>Spectacular image!</h2>
+					<a class="image" href="http://lab.hakim.se/meny/" target="_blank">
+						<img width="320" height="299" src="http://s3.amazonaws.com/hakim-static/portfolio/images/meny.png" alt="Meny">
+					</a>
+				</section>
+
+				<section>
+					<h1>Thank you!</h1>
+					<h3>Any questions?</h3>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
