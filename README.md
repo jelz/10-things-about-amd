@@ -9,8 +9,8 @@
 5. __text!__ - don't store all your templates in one template überfile (applies to any other text resource, too)
 6. __i18n!__ - localize JS apps right way
 7. __jQuery__ - use jQuery in an AMD manner
-8. __Bootstrap__ - customize your libraries with no effort (applies to many other libs, too) (todo)
-9. __Packages__ - find best place for every piece of code (todo)
+8. __Packages__ - find the best place for every piece of code (todo)
+9. __Bootstrap__ - customize your libraries with no effort (applies to many other libs, too)
 10. __browserify__ - know alternative (todo)
 
 As you can see: work is in progress :)
