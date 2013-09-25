@@ -11,7 +11,7 @@
 7. __jQuery__ - use jQuery in an AMD manner
 8. __Packages__ - find the best place for every piece of code (todo)
 9. __Bootstrap__ - customize your libraries with no effort (applies to many other libs, too)
-10. __browserify__ - know alternative (todo)
+10. __browserify__ - know alternative
 
 As you can see: work is in progress :)
 
@@ -27,6 +27,7 @@ First - grab node.js from [nodejs.org](http://nodejs.org). Then:
 * madge: `npm install -g madge`
 * graphviz: `aptitude install graphviz` (Debian/Ubuntu)
 * r.js: `npm install -g requirejs`
+* browserify: `npm install -g browserify`
 
 ### Vendors
 
