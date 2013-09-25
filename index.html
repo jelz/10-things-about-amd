@@ -47,23 +47,23 @@
 					</section>
 					<section>
 						<h2>Normal way of doing things</h2>
-                        <pre><code data-trim contenteditable>
+                        <pre><code data-trim>
 
-<script src="js/jquery.js"></script>
-<script src="js/jquery.payment.js"></script>
-<script src="js/jquery.ui.js"></script>
-<script src="js/underscore.js"></script>
-<script src="js/backbone.js"></script>
-<script src="js/app/main-view.js"></script>
-<script src="js/app/order-view.js"></script>
-<script src="js/app/confirm-view.js"></script>
-<script src="js/app/router.js"></script>
-<script src="js/app/custom-logic.js"></script>
-<script src="js/app/user-collection.js"></script>
-<script src="js/startup.js"></script>
-
+&lt;script src=&quot;js/jquery.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;js/jquery.payment.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;js/jquery.ui.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;js/underscore.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;js/backbone.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;js/app/main-view.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;js/app/order-view.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;js/app/confirm-view.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;js/app/router.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;js/app/custom-logic.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;js/app/user-collection.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;js/startup.js&quot;&gt;&lt;/script&gt;
 
                         </code></pre>
+                        <p>Looks pretty organized, huh? :)</p>
 					</section>
 					<section>
 						<h2>Problems</h2>
@@ -75,24 +75,299 @@
                         </ul>
 					</section>
 					<section>
-                        <h2>todo</h2>
+                        <h2>AMD-style module</h2>
+                        <pre><code data-trim>
+
+define([
+    // define module's dependencies:
+    'jquery', 'underscore', 'router', 'some/custom/module'
+], function (
+    // give them local names:
+    $, _, Router, CustomModule
+) {
+    // ... do someting interesting here ...
+
+    // export some useful things outside:
+    return {
+        fn1: function() { y(); },
+        start: function () { x(); }
+    };
+});
+
+                        </code></pre>
 					</section>
+                    <section>
+                        <h2>Using it</h2>
+                        <p>Assume that previous example was saved as <code>app.js</code></p>
+                        <pre><code data-trim>
+
+require(['jquery', 'app'], function ($, app) {
+    $(function () {
+        app.start();
+    });
+});
+
+                        </code></pre>
+                        <ul>
+                            <li>Function passed as second argument will be called with the loaded jQuery function and our custom app object</li>
+                            <li>Before loading app, all its dependencies will be loaded too</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Gluing with the markup</h2>
+                        <p>Assume that previous example was saved as <code>main.js</code></p>
+                        <pre><code data-trim>
+
+&lt;script
+    src=&quot;bower_components/requirejs/require.js&quot;
+    data-main=&quot;app/main.js&quot;
+&gt;&lt;/script&gt;
+
+                        </code></pre>
+                        <ul>
+                            <li>It will load the whole application (eventually)</li>
+                            <li>require.js is a <strong>loader</strong> (that implements AMD API)</li>
+                            <li>As you can see, I use <em>bower</em> for package management</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Advantages</h2>
+                        <ul>
+                            <li>Modules have their privacy, dependencies are easy to fetch</li>
+                            <li>There is no unintended module interference</li>
+                            <li>Files are loaded asynchronously, but the order needed to fulfill dependencies is automatically handled</li>
+                            <li>One simple build step leads into a compressed bundle (that can be grabbed with one HTTP request)</li>
+                            <li>It works nice with modern tools (Grunt.js, bower)</li>
+                        </ul>
+                    </section>
 				</section>
 
 				<section>
-					<h2>todo</h2>
-				</section>
+                    <section>
+                        <h3>1st thing:</h3>
+                        <h2>Simplified CommonJS Wrapper</h2>
+                    </section>
+                    <section>
+                        <h2>Module definition...</h2>
+                        <p>...that depends on one module</p>
+                        <pre><code data-trim>
 
-				<section>
-					<h2>Spectacular image!</h2>
-					<a class="image" href="http://lab.hakim.se/meny/" target="_blank">
-						<img width="320" height="299" src="http://s3.amazonaws.com/hakim-static/portfolio/images/meny.png" alt="Meny">
-					</a>
+define(['jquery'], function ($) {
+    // use $ here...
+});
+
+                        </code></pre>
+                        <p>We also need <em>underscore</em> and <em>moment</em>!</p>
+                        <pre><code data-trim>
+
+define([
+    'jquery', 'underscore', 'moment'
+], function (
+    $, _, moment
+) {
+    // use $, _, moment here...
+});
+
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2>Real-life code</h2>
+                        <pre><code data-trim>
+
+define([
+    'backbone', 'app', 'moment',
+    'view/NavView', 'view/SwitchView',
+    'view/DayView', 'view/WeekView', 'view/MonthView'
+], function (
+    Backbone, app, moment,
+    NavView, SwitchView,
+    DayView, WeekView, MonthView
+) {
+    // ...
+});
+
+                        </code></pre>
+                        <ul>
+                            <li>And it's still quite simple calendar application</li>
+                            <li>When manipulating the list, it's not so hard to split up dependency from its right name</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>CommonJS Wrapper</h2>
+                        <pre><code data-trim>
+
+define(function (require) {
+    var _ = require('underscore'),
+        $ = require('jquery'),
+        moment = require('moment');
+        
+    var updateClock = _.throttle(function () {
+        var t = moment().format('H:mm:ss');
+        $('#clock2').text(t);
+    }, 1000);
+        
+    return {
+        start: function () {
+            updateClock();
+            setInterval(updateClock, 990);
+        }
+    };
+});
+
+                        </code></pre>
+                        <p>Pair variable with <code>require()</code> call &ndash; code gets much cleaner</p>
+                    </section>
 				</section>
+                
+                <section>
+                    <section>
+                        <h3>2nd thing:</h3>
+                        <h2>Cajon</h2>
+                    </section>
+                    <section>
+                        <h2>Module loader</h2>
+                        <p>Remember module loader on the bottom of your HTML?</p>
+                        <pre><code data-trim>
+
+&lt;script
+    src=&quot;bower_components/requirejs/require.js&quot;
+    data-main=&quot;app/main.js&quot;
+&gt;&lt;/script&gt;
+
+                        </code></pre>
+                        <p>RequireJS is only an inplementation and can be replaced by any other inplementation. Let's use Cajon</p>
+                        <pre><code data-trim>
+
+&lt;script
+    src=&quot;node_modules/cajon/cajon.js&quot;
+    data-main=&quot;app/main.js&quot;
+&gt;&lt;/script&gt;
+
+                        </code></pre>
+                        <p>(as you can see, Cajon is installed using <em>npm</em>)</p>
+                    </section>
+                    <section>
+                        <h2>Result</h2>
+                        <p>What else to say &ndash; Cajon eliminates need of <code>define()</code> calls totally</p>
+                        <pre><code data-trim>
+
+var _ = require('underscore'),
+    $ = require('jquery'),
+    moment = require('moment');
+
+var updateClock = _.throttle(function () {
+    var t = moment().format('H:mm:ss');
+    $('#clock').text(t);
+}, 1000);
+
+module.exports = {
+    start: function () {
+        updateClock();
+        setInterval(updateClock, 990);
+    }
+};
+
+                        </code></pre>
+                        <p>This code can be loaded and executed without any troubles</p>
+                    </section>
+                    <section>
+                        <h2>CommonJS-style</h2>
+                        <ul>
+                            <li>As a result, we get CommonJS-style modules</li>
+                            <li><code>require()</code> calls load dependencies</li>
+                            <li>assigning to <code>module.exports</code> allows to expose module's API</li>
+                            <li>Don't think node.js modules will work out of the box</li>
+                        </ul>
+                    </section>
+                </section>
+                
+                <section>
+                    <section>
+                        <h3>3rd thing:</h3>
+                        <h2>Circular dependencies</h2>
+                    </section>
+                    <section>
+                        <h2>Alice has a cat</h2>
+                        <pre><code data-trim>
+
+// alice.js file
+define(['cat'], function (cat) {
+    return {
+        name: 'Alice',
+        haveWhat: function () {
+            console.log('I\'m ' + this.name);
+            console.log('I have ' + cat.name);
+        }
+    }
+});
+
+                        </code></pre>
+                        <p>And vice versa</p>
+                        <pre><code data-trim>
+
+// cat.js file
+define(['alice'], function (alice) {
+    return {
+        name: 'Cat George',
+        haveWhat: function () {
+            console.log('I\'m ' + this.name);
+            console.log('I have ' + alice.name);
+        }
+    };
+});
+
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2>Won't work</h2>
+                        <ul>
+                            <li>In circular dependency, one side gets undefined (to break the infinite loop)</li>
+                            <li>To detect circular dependency, we can use <em>madge</em></li>
+                            <li><code>madge --format amd --image dep-graph.png .</code></li>
+                        </ul>
+                        <img src="images/1.png" alt="">
+                    </section>
+                    <section>
+                        <h2>More on madge</h2>
+                        <ul>
+                            <li>Blue &ndash; has dependencies</li>
+                            <li>Green &ndash; has no dependencies</li>
+                            <li>Red &ndash; has circular dependency</li>
+                        </ul>
+                        <img src="images/2.png" alt="">
+                        <p>(graph healthier than previous)</p>
+                    </section>
+                    <section>
+                        <h2>Wrapper to rescue (again)</h2>
+                        <pre><code data-trim>
+
+define(function (require, exports, module) {
+    var alice = require('alice');
+    
+    exports.name = 'Cat George';
+    exports.haveWhat = function () {
+        console.log('I\'m ' + this.name);
+        console.log('I have ' + alice.name);
+    };
+    exports.sayWhatAliceSays = function () {
+        console.log('She says:');
+        alice.haveWhat();
+    };
+});
+
+                        </code></pre>
+                        <ul>
+                            <li>When <code>exports</code> is used on both sides, then modules get valid references, that will be loaded, when module function returns</li>
+                            <li>So cat module can use alice object in functions that it exports</li>
+                            <li>It's still a circular dependency</li>
+                        </ul>
+                    </section>
+                </section>
 
 				<section>
 					<h1>Thank you!</h1>
 					<h3>Any questions?</h3>
+                    <p><a href="mailto:jelz@post.pl">jelz@post.pl</a></p>
 				</section>
 
 			</div>
