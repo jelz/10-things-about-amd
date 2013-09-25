@@ -11,7 +11,7 @@ define(function (require) {
     return {
         start: function () {
             updateClock();
-            setInterval(updateClock, 1000);
+            setInterval(updateClock, 990);
         }
     };
 });

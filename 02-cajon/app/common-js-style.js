@@ -10,6 +10,6 @@ var updateClock = _.throttle(function () {
 module.exports = {
     start: function () {
         updateClock();
-        setInterval(updateClock, 1000);
+        setInterval(updateClock, 990);
     }
 };
