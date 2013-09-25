@@ -7,8 +7,8 @@
 3. __Circular Dependencies__ - avoid, detect and live with those
 4. __Almond__ - don't keep XHR loading code when in production
 5. __text!__ - don't store all your templates in one template überfile (applies to any other text resource, too)
-6. __i18n!__ - localize JS apps right way (todo)
-7. __jQuery__ - use jquery in an AMD manner (todo)
+6. __i18n!__ - localize JS apps right way
+7. __jQuery__ - use jQuery in an AMD manner
 8. __Bootstrap__ - customize your libraries with no effort (applies to many other libs, too) (todo)
 9. __Packages__ - find best place for every piece of code (todo)
 10. __browserify__ - know alternative (todo)
