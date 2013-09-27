@@ -69,7 +69,7 @@
 						<h2>Problems</h2>
                         <ul>
                             <li>Scripts are sequentially loaded one-by-one</li>
-                            <li>Order have to be maintained manually</li>
+                            <li>Order has to be maintained manually</li>
                             <li>Global object gets dirty</li>
                             <li>Things can be easily overridden</li>
                         </ul>
@@ -146,7 +146,7 @@ require(['jquery', 'app'], function ($, app) {
                     <h2>Pay attention...</h2>
                     <p>...to ideas and possibilities</p>
                     <p>Code is only an illustration</p>
-                    <p>10 complete examples wait <a href="https://github.com/jelz/10-things-about-amd" target="_blank">on GitHub</a></p>
+                    <p>10 complete examples to take a look at <a href="https://github.com/jelz/10-things-about-amd" target="_blank">on GitHub</a></p>
                 </section>
 
 				<section>
@@ -342,7 +342,7 @@ define(['alice'], function (alice) {
                             <li>Red &ndash; has circular dependency</li>
                         </ul>
                         <img src="images/2.png" alt="">
-                        <p>(graph healthier than previous)</p>
+                        <p>(graph healthier than previous one)</p>
                     </section>
                     <section>
                         <h2>Wrapper to rescue (again)</h2>
@@ -421,7 +421,7 @@ define(function (require, exports, module) {
                         <ul>
                             <li>Almond provides minimal AMD API</li>
                             <li>In my cases &ndash; ~16kB smaller output files</li>
-                            <li>It buys you Ferrari yearly (if you're big enough ;))</li>
+                            <li>It buys you a Ferrari yearly (if you're big enough ;))</li>
                         </ul>
                     </section>
                 </section>
@@ -446,7 +446,7 @@ define(function (require, exports, module) {
                             <li><em>text!</em> plugin allows to grab any text file from any accessible location.</li>
                             <li>Its content is passed into module function as normal string.</li>
                             <li>Popular plugin's application is to load templates</li>
-                            <li>Having all your templates on the bottom of HTML, as <code>&lt;script&gt;</code> tags is messy and hard to maintain (especially when you do hundrets of atomic views)</li>
+                            <li>Having all your templates on the bottom of HTML, as <code>&lt;script&gt;</code> tags is messy and hard to maintain (especially when you do hundreds of atomic views)</li>
                         </ul>
                     </section>
                     <section>
@@ -465,7 +465,7 @@ _.each(templates, function (markup) {
 
                         </code></pre>
                         <p>Now, when editing, you know where to search each template</p>
-                        <p>But don't forget optimization!</p>
+                        <p>But don't forget about optimization!</p>
                     </section>
                 </section>
                 
@@ -504,7 +504,7 @@ define({
                         <h2>Using it</h2>
                         <ul>
                             <li>When you <code>require('i18n!nls/labels')</code>, correct translations will be loaded</li>
-                            <li><em>Correct</em> means "intelligent guess of user's language, based on environment, falling back to default"</li>
+                            <li><em>Correct</em> means "an intelligent guess of user's language, based on environment, falling back to default"</li>
                             <li>You can also set <code>locale</code> key in config</li>
                         </ul>
                     </section>
@@ -575,7 +575,7 @@ require.config({
                     <section>
                         <h2>Shim config</h2>
                         <ul>
-                            <li>Some jQuery plugins don't have its AMD version</li>
+                            <li>Some jQuery plugins don't have their AMD version</li>
                             <li>When requested, jQuery object can be still undefined, so plugin can't be correctly registered</li>
                             <li><em>Shim config</em> allows to define dependencies for vendors, without modifying its code</li>
                         </ul>
@@ -733,7 +733,7 @@ define([
                         <h2>browserify</h2>
                         <ul>
                             <li>There is a project called <em>browserify</em></li>
-                            <li>It's parser tracks dependencies of CommonJS-style modules and packs them into one bundle in build process</li>
+                            <li>Its parser tracks dependencies of CommonJS-style modules and packs them into one bundle in build process</li>
                             <li>It allows to use <em>npm</em> modules in the browser</li>
                             <li>It requires build step on every change (Grunt's watch task is probably a good idea)</li>
                         </ul>
