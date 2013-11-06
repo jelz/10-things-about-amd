@@ -13,9 +13,9 @@
 9. __Bootstrap__ - customize your libraries with no effort (applies to many other libs, too)
 10. __browserify__ - know alternative
 
-### Slides
+### Slides are...
 
-[alpha version](http://jelz.github.io/10-things-about-amd/)
+... [here](http://jelz.github.io/10-things-about-amd/)
 
 ### Server
 
